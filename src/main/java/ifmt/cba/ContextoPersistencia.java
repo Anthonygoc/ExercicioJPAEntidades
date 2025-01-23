@@ -10,7 +10,7 @@ public class ContextoPersistencia {
 
         EntityManagerFactory emf = null;
         EntityManager em = null;
-
+a
         try {
             emf = Persistence.createEntityManagerFactory("Testando");
             em = emf.createEntityManager();
