@@ -1,22 +1,24 @@
 package ifmt.cba.VO;
-
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "GrupoProduto")
+@Table(name = "grupo_produto")
 public class GrupoProdutoVO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codigo;
-   private String nome;
+    @Column(name = "codigo")
+    private Long codigo; // Mudado para Long para melhor compatibilidade com PostgreSQL
 
+    @Column(name = "nome", length = 255, nullable = false)
+    private String nome;
 
-    public int getCodigo() {
+    // Getters e Setters
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -25,6 +27,5 @@ public class GrupoProdutoVO {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
-    }
+        this.nome=nome;}
 }

@@ -1,3 +1,4 @@
+
 package ifmt.cba.VO;
 
 import jakarta.persistence.*;

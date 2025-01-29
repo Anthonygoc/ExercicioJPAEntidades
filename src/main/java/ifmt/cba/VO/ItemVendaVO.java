@@ -2,17 +2,20 @@ package ifmt.cba.VO;
 
 import jakarta.persistence.*;
 
-@Table(name = "ItemVenda")
+@Table(name = "item_venda")
 @Entity
 public class ItemVendaVO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codigo")
     private int codigo;
+    @Column(name = "quantidade")
     private int quantidade;
 
+    @Column(name = "preco_venda")
     private int precovenda;
-
+    @Column(name = "preco_desconto")
     private float precoDesconto;
 
     public int getQuantidade() {

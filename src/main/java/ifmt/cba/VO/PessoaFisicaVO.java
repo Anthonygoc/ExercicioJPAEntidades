@@ -1,3 +1,4 @@
+
 package ifmt.cba.VO;
 
 import jakarta.persistence.*;
@@ -26,4 +27,5 @@ public class PessoaFisicaVO {
     public void setRG(String RG) {
         this.RG = RG;
     }
+
 }

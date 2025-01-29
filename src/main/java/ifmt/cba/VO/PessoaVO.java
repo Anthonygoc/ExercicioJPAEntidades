@@ -1,3 +1,4 @@
+/*
 package ifmt.cba.VO;
 
 import jakarta.persistence.*;
@@ -27,3 +28,4 @@ public class PessoaVO {
         this.nome = nome;
     }
 }
+*/
