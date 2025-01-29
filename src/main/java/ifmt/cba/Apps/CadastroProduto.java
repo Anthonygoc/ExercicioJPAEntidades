@@ -5,22 +5,44 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import javax.swing.*;
+
 public class CadastroProduto {
 
     public static void main(String[] args) {
+        EntityManagerFactory emf = null;
+        EntityManager em = null;
 
-        ProdutoVO produto = new ProdutoVO();
-        produto.setNome("Abacaxi");
-        produto.setPrecoVenda(10);
-        produto.setCodigo(352);
+        try {
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("Testando");
+            emf = Persistence.createEntityManagerFactory("Testando");
+            em = emf.createEntityManager();
 
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.merge(produto);
-        em.getTransaction().commit();
-        em.close();
+            ProdutoVO produto = new ProdutoVO();
+            String nome = JOptionPane.showInputDialog("Digite o nome do produto");
+            int codigo = Integer.parseInt(JOptionPane.showInputDialog("Digite o código do produto"));
 
+
+            produto.setNome(nome);
+            produto.setCodigo(codigo);
+
+            em.getTransaction().begin();
+            em.merge(produto);
+            em.getTransaction().commit();
+
+            System.out.println("Produto cadastrado com sucesso!");
+
+        } catch (Exception ex) {
+            System.out.println("Inclusão não realizada: " + ex.getMessage());
+            ex.printStackTrace();
+
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+            if (emf != null) {
+                emf.close();
+            }
+        }
     }
 }
