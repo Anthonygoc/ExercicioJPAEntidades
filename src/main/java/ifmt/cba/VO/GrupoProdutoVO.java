@@ -8,24 +8,25 @@ public class GrupoProdutoVO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo")
-    private Long codigo; // Mudado para Long para melhor compatibilidade com PostgreSQL
+    private Long codigo; // Usando Long para maior compatibilidade com PostgreSQL
 
     @Column(name = "nome", length = 255, nullable = false)
     private String nome;
 
-    // Getters e Setters
-    public Long getCodigo() {
+    // Métodos de acesso
+    public Long obterCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Long codigo) {
+    public void atribuirCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
-    public String getNome() {
+    public String obterNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome=nome;}
+    public void atribuirNome(String nome) {
+        this.nome = nome;
+    }
 }

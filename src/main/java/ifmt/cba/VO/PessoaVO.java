@@ -1,31 +1,43 @@
-/*
 package ifmt.cba.VO;
 
-import jakarta.persistence.*;
+import java.io.Serializable;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Pessoa")
-public class PessoaVO {
+@Table(name="pessoa")
+@Inheritance(strategy = InheritanceType.JOINED) // Utilizando a estratégia JOINED
+public abstract class PessoaVO implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int codigo;
-    private String nome;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE) // Alterando para SEQUENCE
+    @Column(name = "codigo")
+    private Long id;
 
-    public int getCodigo() {
-        return codigo;
+    @Column(name = "nome")
+    private String nomeCompleto;
+
+    // Métodos de acesso
+    public Long obterId() {
+        return id;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void definirId(Long id) {
+        this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String obterNomeCompleto() {
+        return nomeCompleto;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void definirNomeCompleto(String nome) {
+        this.nomeCompleto = nome;
     }
 }
-*/

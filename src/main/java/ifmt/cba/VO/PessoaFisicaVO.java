@@ -1,31 +1,32 @@
-
 package ifmt.cba.VO;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
-@Table (name = "PessoaFisica")
-public class PessoaFisicaVO {
+@Table(name = "pessoa_fisica")
+public class PessoaFisicaVO extends PessoaVO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String CPF;
-    private String RG;
+    @Column(name = "rg")
+    private String numeroRg;
 
-    public String getCPF() {
-        return CPF;
+    @Column(name = "cpf")
+    private String numeroCpf;
+
+    public String obterRg() {
+        return numeroRg;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void definirRg(String rg) {
+        this.numeroRg = rg;
     }
 
-    public String getRG() {
-        return RG;
+    public String obterCpf() {
+        return numeroCpf;
     }
 
-    public void setRG(String RG) {
-        this.RG = RG;
+    public void definirCpf(String cpf) {
+        this.numeroCpf = cpf;
     }
-
 }

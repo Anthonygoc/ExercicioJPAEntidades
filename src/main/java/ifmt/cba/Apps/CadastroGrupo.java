@@ -4,45 +4,59 @@ import ifmt.cba.VO.GrupoProdutoVO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
 import javax.swing.*;
 
 public class CadastroGrupo {
+
     public static void main(String[] args) {
         EntityManagerFactory emf = null;
         EntityManager em = null;
 
         try {
-            // Criar apenas uma instância do EntityManagerFactory
             emf = Persistence.createEntityManagerFactory("Testando");
             em = emf.createEntityManager();
 
-            // Criar e preencher o objeto grupo
+            // Coleta o nome do grupo
+            String nome = obterDadosUsuario("Digite o nome do grupo");
+            if (nome == null) return;
+
+            // Cria o objeto GrupoProdutoVO
             GrupoProdutoVO grupo = new GrupoProdutoVO();
-            String nome = JOptionPane.showInputDialog("Digite o nome do grupo");
             grupo.setNome(nome);
 
-            // Iniciar a transação e salvar
+            // Persiste o grupo no banco de dados
             em.getTransaction().begin();
-            em.persist(grupo); // Usando persist para novos registros
+            em.persist(grupo);
             em.getTransaction().commit();
 
+            // Exibe mensagem de sucesso
             JOptionPane.showMessageDialog(null, "Grupo cadastrado com sucesso!");
 
         } catch (Exception ex) {
-            // Fazer rollback se houver erro durante a transação
             if (em != null && em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar grupo: " + ex.getMessage());
+            System.out.println("Inclusão não realizada: " + ex.getMessage());
             ex.printStackTrace();
         } finally {
-            // Fechar as conexões
-            if (em != null) {
+            if (em != null && em.isOpen()) {
                 em.close();
             }
-            if (emf != null) {
+            if (emf != null && emf.isOpen()) {
                 emf.close();
             }
         }
+    }
+
+    // Método reutilizável para coletar dados do usuário
+    private static String obterDadosUsuario(String mensagem) {
+        String dado = JOptionPane.showInputDialog(mensagem);
+        if (dado == null || dado.trim().isEmpty()) {
+            System.out.println("Operação cancelada: " + mensagem.toLowerCase() + " não pode ser vazio");
+            return null;
+        }
+        return dado;
     }
 }
